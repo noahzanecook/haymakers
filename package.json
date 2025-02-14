@@ -3,6 +3,7 @@
     "three": "^0.173.0"
   },
   "devDependencies": {
+    "@dimforge/rapier3d-compat": "^0.14.0",
     "vite": "^6.1.0"
   }
 }
