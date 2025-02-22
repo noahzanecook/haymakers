@@ -26,13 +26,13 @@ class Game {
     }
 
     update() {
-        this.player.update(); // update player
-
         // update dynamic bodies
         this.dynamicBodies.forEach(([mesh, body]) => {
             const position = body.translation();
             mesh.position.set(position.x, position.y, position.z);
         });
+
+        this.player.update(); // update player
     }
 }
 

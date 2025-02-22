@@ -53,10 +53,14 @@ class Player {
         // controls
         handleMovement(this.body);
 
-        // update the position of the collider box outline for debugging
-        if (this.bodyOutline) {
-            const position = this.body.translation();
-            this.bodyOutline.position.set(position.x, position.y, position.z);
+        if (this.mesh) {
+            this.mesh.position.y -= 1;
+
+            // update the position of the collider box outline for debugging
+            if (this.bodyOutline) {
+                const position = this.body.translation();
+                this.bodyOutline.position.set(position.x, position.y, position.z);
+            }
         }
     }
 }
