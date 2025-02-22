@@ -5,14 +5,14 @@ import { handleMovement } from './controls';
 
 class Player {
     constructor(scene, camera, renderer, world, dynamicBodies, debug) {
-        this.scene = scene;
-        this.camera = camera;
-        this.renderer = renderer;
-        this.world = world;
+        this.scene = scene; // three.js scene
+        this.camera = camera; // three.js camera
+        this.renderer = renderer; // three.js renderer
+        this.world = world; // rapier physics world
 
-        this.dynamicBodies = dynamicBodies;
+        this.dynamicBodies = dynamicBodies; // array for mapping three.js models to rapier physics bodies
 
-        const loader = new GLTFLoader();
+        const loader = new GLTFLoader(); // three.js gltf model loader
         loader.load('/src/assets/meshes/test.glb', (gltf) => {
             // place the player model in the scene
             this.mesh = gltf.scene;
@@ -27,8 +27,7 @@ class Player {
             this.body = this.world.createRigidBody(playerBodyDesc);
             this.world.createCollider(playerColliderDesc, this.body);
 
-            // Array to store dynamic bodies
-            this.dynamicBodies.push([this.mesh, this.body])
+            this.dynamicBodies.push([this.mesh, this.body]) // add to dynamic bodies array
 
             if (debug) {
                 // wireframe of the mesh (white)

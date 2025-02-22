@@ -2,11 +2,11 @@ import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat'
 import Stats from 'three/addons/libs/stats.module.js'
 import { summonSillyCube, updateSillyCube } from './utils/sillycube.js';
-import { loadTest } from './assets/maps/test.js';
-import { handleMovement, initControls } from './utils/controls.js';
+import { initControls } from './utils/controls.js';
 import Game from './game.js';
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 // SET UP
 await RAPIER.init(); // necessary for compat version
 
@@ -30,25 +30,25 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix()
     renderer.setSize(window.innerWidth, window.innerHeight)
 })
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 // LOOP
 summonSillyCube(scene); // use for testing and reference for external functions
 
-// fps
-const stats = new Stats()
-document.body.appendChild(stats.dom)
+const stats = new Stats() // fps counter
+document.body.appendChild(stats.dom) // append fps counter to body
 
-// initialize gameasd
-const game = new Game(scene, camera, renderer, world, false);
+const game = new Game(scene, camera, renderer, world, false); // set 5th parameter to true for debug mode
 game.loadMap(); // loads /maps/test.js as of rn
 
 initControls(); // controls.js
-const clock = new THREE.Clock()
-let delta
+// const clock = new THREE.Clock()
+// let delta
 
 function animate() {
 
-    delta = clock.getDelta()
+    // delta = clock.getDelta()
     // world.timestep = Math.min(delta, 0.1)
     world.step()
 
@@ -56,10 +56,10 @@ function animate() {
 
     game.update(); // game.js
 
-    updateSillyCube();
+    updateSillyCube(); // cube spin
 
-    renderer.render(scene, camera)
-    stats.update()
+    renderer.render(scene, camera) // render scene
+    stats.update() // update fps counter
 }
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
