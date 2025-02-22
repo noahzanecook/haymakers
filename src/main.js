@@ -34,14 +34,13 @@ window.addEventListener('resize', () => {
 // LOOP
 summonSillyCube(scene); // use for testing and reference for external functions
 
-loadTest(scene, world); // test map. should be replaced with actual map loader in game.js
-
 // fps
 const stats = new Stats()
 document.body.appendChild(stats.dom)
 
-// initialize game
-const game = new Game(scene, camera, renderer, world);
+// initialize gameasd
+const game = new Game(scene, camera, renderer, world, false);
+game.loadMap(); // loads /maps/test.js as of rn
 
 initControls(); // controls.js
 const clock = new THREE.Clock()
