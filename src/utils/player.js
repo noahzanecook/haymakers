@@ -9,6 +9,7 @@ class Player {
         this.camera = camera; // three.js camera
         this.renderer = renderer; // three.js renderer
         this.world = world; // rapier physics world
+        this.awake = true // state of whether player can act
 
         this.dynamicBodies = dynamicBodies; // array for mapping three.js models to rapier physics bodies
 
@@ -22,10 +23,10 @@ class Player {
             this.scene.add(this.mesh);
 
             // Create player physics body
-            const playerColliderDesc = RAPIER.ColliderDesc.cuboid(0.5, 1, 0.5); // if you move to much this falls over
+            const playerCollider = RAPIER.ColliderDesc.cuboid(0.5, 1, 0.5); // if you move to much this falls over
             const playerBodyDesc = RAPIER.RigidBodyDesc.dynamic().setTranslation(0, 1, -2);
             this.body = this.world.createRigidBody(playerBodyDesc);
-            this.world.createCollider(playerColliderDesc, this.body);
+            const collider = this.world.createCollider(playerCollider, this.body);
 
             this.dynamicBodies.push([this.mesh, this.body]) // add to dynamic bodies array
 
@@ -51,7 +52,9 @@ class Player {
 
     update() {
         // controls
-        handleMovement(this.body);
+        if (this.awake) {
+            handleMovement(this.body);
+        }
 
         if (this.mesh) {
             this.mesh.position.y -= 1;
