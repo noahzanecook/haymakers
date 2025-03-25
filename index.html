@@ -7,10 +7,21 @@
     <style>
         body {
             margin: 0;
+            overflow: hidden;
+        }
+        #pause {
+            position: absolute;
+            z-index: 99;
+            bottom: 0;
+            right: 0;
+            color:white;
+            font: 30px Arial, sans-serif;
+            opacity: 60%;
+            padding:20px;
         }
     </style>
 </head>
-
+<div id="pause">Pause</div>
 <body>
     <script type="module" src="src/main.js"></script>
 </body>
