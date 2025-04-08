@@ -18,11 +18,13 @@ Project
 │   │   ├── maps/                   -- map files
 │   │   └── meshes/                 *
 │   ├── utils/                      -- code stuff
-│   │   ├── controls.js             -- movement handling
+│   │   ├── controls.js             -- input handling
+│   │   ├── movement.js             -- movement handling
 │   │   ├── player.js               -- player class
 │   │   └── sillycube.js            -- testing file
-│   ├── game.js                     -- game class
-│   └── main.js                     -- main file
+│   ├── game.js                     -- game class (round)
+│   ├── main.js                     -- main file
+│   └── mapLoader.js                -- map loading
 ├── index.html                      *
 ├── package.json                    *
 └── README.md                       -- what you are reading

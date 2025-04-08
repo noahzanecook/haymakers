@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 
-export function loadBarnyard(scene, world, dynamicBodies, miscBodies, debug) {
+export function loadBarnyard(scene, world, dynamicBodies, debug) {
 
     scene.background = new THREE.Color(0x4488FF); // barnyard color
 
