@@ -1,5 +1,6 @@
 import Player from './utils/player.js';
 import { loadTest } from './assets/maps/test.js';
+import { loadBarnyard } from './assets/maps/barnyard.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 
 class Game {
@@ -16,13 +17,15 @@ class Game {
 
         this.dynamicBodies = []; // array for mapping three.js models to rapier physics bodies
 
+        this.miscBodies = []; // misc objects (e.g. moving platforms)
+
         this.player = new Player(scene, camera, renderer, world, this.dynamicBodies, this.debug); // player object. later should be able to have multiple players
     }
 
     loadMap() {
-        loadTest(this.scene, this.world, this.dynamicBodies, this.debug);
-        // loads test map (/maps/test.js) for time being
         // this function should be expanded to load different maps based on a parameter
+        // loadTest(this.scene, this.world, this.dynamicBodies, this.debug);
+        loadBarnyard(this.scene, this.world, this.dynamicBodies, this.miscBodies, this.debug); // loads barnyard map
     }
 
     update() {

@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import RAPIER from '@dimforge/rapier3d-compat';
 
-export function loadTest(scene, world, dynamicBodies, debug) {
+export function loadTest(scene, world, dynamicBodies, miscBodies, debug) {
 
     // light
     const light = new THREE.PointLight(0xffffff, 150, 100, 1.8);

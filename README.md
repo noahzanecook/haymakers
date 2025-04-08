@@ -1,4 +1,4 @@
-# [Place Holder].io
+# Haymakers
 Multiplayer ragdoll-fighting game using Threejs.org and Rapier.rs
 ## Set-up
 *Make sure you have Node.js installed https://nodejs.org/*
