@@ -3,6 +3,7 @@ import { loadTest } from './assets/maps/test.js';
 import { loadBarnyard } from './assets/maps/barnyard.js';
 import { OrbitControls } from 'three/examples/jsm/Addons.js';
 import { loadMap } from './mapLoader.js'; // import map loader function
+import MultiplayerManager from './utils/multiplayer.js';
 
 class Game {
     constructor(scene, camera, renderer, world, debug) {
@@ -20,6 +21,11 @@ class Game {
 
         // this.miscBodies = []; // misc objects (e.g. moving platforms)
 
+        // Initialize multiplayer manager first
+        this.multiplayer = new MultiplayerManager(scene, world, this.dynamicBodies);
+        this.multiplayer.connect('http://localhost:3000'); // Replace with your server URL
+
+        // Then create the player
         this.player = new Player(scene, camera, renderer, world, this.dynamicBodies, this.debug); // player object. later should be able to have multiple players
     }
 
@@ -43,6 +49,12 @@ class Game {
         });
 
         this.player.update(); // update player
+
+        // Send player position update to other players
+        if (this.player.body) {
+            const position = this.player.body.translation();
+            this.multiplayer.sendPlayerUpdate(position);
+        }
     }
 }
 
