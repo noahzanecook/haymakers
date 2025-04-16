@@ -71,7 +71,9 @@ class Player {
             if (this.mesh && this.mixer) {
                 let targetAnimation = 'Idle';
                 
-                if (movementState.isJumping) {
+                if (movementState.isPunching) {
+                    targetAnimation = 'Punch';
+                } else if (movementState.isJumping) {
                     targetAnimation = 'Jump';
                 } else if (movementState.isMoving) {
                     targetAnimation = 'Walking';
@@ -80,8 +82,8 @@ class Player {
                 // Only change animation if the state has changed
                 if (targetAnimation.toLowerCase() !== this.currentAnimationState) {
                     this.currentAnimationState = targetAnimation.toLowerCase();
-                    if (targetAnimation === 'Jump') {
-                        this.playEmote('Jump');
+                    if (targetAnimation === 'Jump' || targetAnimation === 'Punch') {
+                        this.playEmote(targetAnimation);
                     } else {
                         this.fadeToAction(targetAnimation);
                     }
