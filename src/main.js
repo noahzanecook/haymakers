@@ -43,20 +43,22 @@ const game = new Game(scene, camera, renderer, world, false); // set 5th paramet
 game.loadMap(); // loads /maps/test.js as of rn
 
 initControls(); // controls.js
-// const clock = new THREE.Clock()
-// let delta
+const clock = new THREE.Clock()
+let delta
 
 function animate() {
-
-    // delta = clock.getDelta()
-    // world.timestep = Math.min(delta, 0.1)
+    delta = clock.getDelta()
+    
+    // Cap delta time to prevent large jumps
+    delta = Math.min(delta, 0.1)
+    
+    // Update physics with fixed timestep
+    world.timestep = delta
     world.step()
 
-    // handleMovement(playerBody); // controls.js
+    game.update(delta); // Pass delta time to game update
 
-    game.update(); // game.js
-
-    updateSillyCube(); // cube spin
+    updateSillyCube(delta); // Pass delta time to cube update
 
     renderer.render(scene, camera) // render scene
     stats.update() // update fps counter

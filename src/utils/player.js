@@ -62,7 +62,7 @@ class Player {
         });
     }
 
-    update() {
+    update(delta) {
         // controls
         if (this.awake && this.body) {
             const movementState = handleMovement(this.body);
@@ -98,8 +98,7 @@ class Player {
         }
 
         if (this.mesh && this.mixer) {
-            // Update animations
-            const delta = this.clock.getDelta();
+            // Update animations using passed delta time
             this.mixer.update(delta);
         }
     }

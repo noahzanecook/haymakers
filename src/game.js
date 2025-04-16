@@ -35,14 +35,14 @@ class Game {
         loadMap(map, this.scene, this.world, this.dynamicBodies, this.debug); // loads map mapLoader.js
     }
 
-    update() {
+    update(delta) {
         // update dynamic bodies
         this.dynamicBodies.forEach(([mesh, body]) => {
             const position = body.translation();
             mesh.position.set(position.x, position.y, position.z);
         });
 
-        this.player.update(); // update player
+        this.player.update(delta); // update player with delta time
     }
 }
 

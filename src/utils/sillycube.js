@@ -8,7 +8,8 @@ export function summonSillyCube(scene) {
     scene.add(sillyCube);
 }
 
-export function updateSillyCube() {
-    sillyCube.rotation.x += 0.01;
-    sillyCube.rotation.y += 0.01;
+export function updateSillyCube(delta) {
+    const rotationSpeed = 1.0; // rotations per second
+    sillyCube.rotation.x += rotationSpeed * delta;
+    sillyCube.rotation.y += rotationSpeed * delta;
 }
