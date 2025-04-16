@@ -5,21 +5,26 @@ import { handleMovement } from './controls';
 
 class Player {
     constructor(scene, camera, renderer, world, dynamicBodies, debug) {
+        
         this.scene = scene; // three.js scene
         this.camera = camera; // three.js camera
         this.renderer = renderer; // three.js renderer
         this.world = world; // rapier physics world
+        this.clock = new THREE.Clock(); // animation clock
+
+        this.body = null; // physics body
+        this.mesh = null; // 3D model
         this.awake = true // state of whether player can act
+        this.dynamicBodies = dynamicBodies; // array for mapping three.js models to rapier physics bodies
+
         this.mixer = null; // animation mixer
         this.actions = {}; // animation actions
         this.activeAction = null; // current animation action
         this.previousAction = null; // previous animation action
-        this.clock = new THREE.Clock(); // animation clock
-        this.body = null; // physics body
-        this.mesh = null; // 3D model
         this.currentAnimationState = 'idle'; // track current animation state
 
-        this.dynamicBodies = dynamicBodies; // array for mapping three.js models to rapier physics bodies
+        // reference for this model
+        // https://github.com/mrdoob/three.js/blob/dev/examples/webgl_animation_skinning_morph.html
 
         const loader = new GLTFLoader(); // three.js gltf model loader
         loader.load('/src/assets/meshes/RobotExpressive.glb', (gltf) => {

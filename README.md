@@ -9,7 +9,6 @@ Multiplayer ragdoll-fighting game using Threejs.org and Rapier.rs
 ## Project Structure
 <pre>
 Project
-├── node_modules/                   *
 ├── public/                         -- public folder
 ├── src/                            -- source code
 │   ├── assets/                     *
