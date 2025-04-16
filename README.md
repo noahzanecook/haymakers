@@ -1,5 +1,5 @@
 # Haymakers
-Multiplayer ragdoll-fighting game using Threejs.org and Rapier.rs
+Multiplayer 3D-fighting game using Threejs.org and Rapier.rs
 ## Set-up
 *Make sure you have Node.js installed https://nodejs.org/*
 *Clone this repository to your system*
