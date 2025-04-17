@@ -3,9 +3,8 @@ import RAPIER from '@dimforge/rapier3d-compat'
 import Stats from 'three/addons/libs/stats.module.js'
 import { summonSillyCube, updateSillyCube } from './utils/sillycube.js';
 import { initControls } from './utils/controls.js';
-import Game from './game.js';
-
-
+import LobbyManager from './utils/lobbyManager.js';
+import Lobby from './utils/lobby.js';
 
 // SET UP
 await RAPIER.init(); // necessary for compat version
@@ -17,12 +16,17 @@ const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerH
 camera.position.set(0, 5, 10); // camera position
 camera.setRotationFromAxisAngle(new THREE.Vector3(-1, 0, 0), Math.PI / 6); // camera rotation
 
-
 const renderer = new THREE.WebGLRenderer({ antialias: true }); // renderer init
 renderer.setSize(window.innerWidth, window.innerHeight); // renderer size
 renderer.shadowMap.enabled = true; // shadows
 renderer.shadowMap.type = THREE.PCFSoftShadowMap; // shadows
 document.body.appendChild(renderer.domElement); // append renderer to body
+
+// Debug mode flag
+const debug = true;
+
+// Initialize lobby manager with required parameters
+const lobbyManager = new LobbyManager(scene, camera, renderer, world, debug);
 
 // window resize
 window.addEventListener('resize', () => {
@@ -31,16 +35,11 @@ window.addEventListener('resize', () => {
     renderer.setSize(window.innerWidth, window.innerHeight)
 })
 
-
-
 // LOOP
 summonSillyCube(scene); // use for testing and reference for external functions
 
 const stats = new Stats() // fps counter
 document.body.appendChild(stats.dom) // append fps counter to body
-
-const game = new Game(scene, camera, renderer, world, false); // set 5th parameter to true for debug mode
-game.loadMap(); // loads /maps/test.js as of rn
 
 initControls(); // controls.js
 const clock = new THREE.Clock()
@@ -56,7 +55,10 @@ function animate() {
     world.timestep = delta
     world.step()
 
-    game.update(delta); // Pass delta time to game update
+    // Update lobby if it exists
+    if (lobbyManager.activeLobby) {
+        lobbyManager.activeLobby.update(delta);
+    }
 
     updateSillyCube(delta); // Pass delta time to cube update
 
@@ -75,5 +77,8 @@ if (WebGL.isWebGL2Available()) {
     document.getElementById('container').appendChild(warning);
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// Export lobbyManager to window for console access
+window.lobbyManager = lobbyManager;
 
 animate();
