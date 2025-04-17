@@ -69,12 +69,8 @@ class LobbyManager {
         });
 
         // Listen for lobby join confirmation
-        this.socket.on('joinedLobby', (lobbyId) => {
-            console.log('Joined lobby:', lobbyId);
-            // Get the map name from the available lobbies
-            const lobbyData = this.availableLobbies.get(lobbyId);
-            const mapName = lobbyData ? lobbyData.mapName : 'test';
-            console.log('Using map name:', mapName);
+        this.socket.on('joinedLobby', (lobbyData) => {
+            console.log('Joined lobby with data:', lobbyData);
             
             // Create a new lobby instance when we join
             this.activeLobby = new Lobby(
@@ -83,11 +79,11 @@ class LobbyManager {
                 this.renderer,
                 this.world,
                 this.debug,
-                lobbyId,
-                mapName
+                lobbyData.lobbyId,
+                lobbyData.mapName
             );
             if (this._resolveLobbyPromise) {
-                this._resolveLobbyPromise({ success: true, lobbyId, isHost: false });
+                this._resolveLobbyPromise({ success: true, lobbyId: lobbyData.lobbyId, isHost: false });
                 this._resolveLobbyPromise = null;
             }
         });

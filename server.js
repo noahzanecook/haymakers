@@ -78,7 +78,13 @@ io.on('connection', (socket) => {
         const lobby = lobbies.get(lobbyId);
         if (lobby) {
             lobby.players.add(socket.id);
-            socket.emit('joinedLobby', lobbyId);
+            console.log('lobby:', lobby);
+            socket.emit('joinedLobby', {
+                lobbyId,
+                mapName: lobby.mapName,
+                host: lobby.host,
+                players: Array.from(lobby.players)
+            });
             // Notify other players in the lobby
             lobby.players.forEach(playerId => {
                 if (playerId !== socket.id) {
