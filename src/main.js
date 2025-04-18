@@ -39,8 +39,9 @@ summonSillyCube(scene); // use for testing and reference for external functions
 const stats = new Stats() // fps counter
 document.body.appendChild(stats.dom) // append fps counter to body
 
-const game = new Game(scene, camera, renderer, world, false); // set 5th parameter to true for debug mode
-game.loadMap(); // loads /maps/test.js as of rn
+let game 
+startGame();
+
 
 initControls(); // controls.js
 // const clock = new THREE.Clock()
@@ -74,4 +75,14 @@ if (WebGL.isWebGL2Available()) {
 }
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-animate();
+function startGame() {
+    game = new Game(scene, camera, renderer, world, false); // set 5th parameter to true for debug mode
+    game.loadMap(); // loads /maps/test.js as of rn
+    renderer.setAnimationLoop(() => {
+        game.update(); // Update game logic
+        updateSillyCube(); // Update the spinning cube
+        renderer.render(scene, camera); // Render the scene
+        stats.update(); // Update FPS counter
+    });
+    animate();
+}
